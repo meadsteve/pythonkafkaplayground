@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "efcb7d80e5e6b4a6db3820923a506c230bf09e0d06eb70b50481bf7bebf86e0d"
+            "sha256": "952558f9d5a5b3a9736c6dfe1ed6f77d1136565a87944647936489b7181c5356"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,14 @@
         ]
     },
     "default": {
+        "django": {
+            "hashes": [
+                "sha256:04f2e423f2e60943c02bd2959174b844f7d1bcd19eabb7f8e4282999958021fd",
+                "sha256:e1cc1cd6b658aa4e052f5f2b148bfda08091d7c3558529708342e37e4e33f72c"
+            ],
+            "index": "pypi",
+            "version": "==2.1.1"
+        },
         "kafka-python": {
             "hashes": [
                 "sha256:078acdcd1fc6eddacc46d437c664998b4cf7613b7e79ced66a460965f2648f88",
@@ -23,6 +31,13 @@
             ],
             "index": "pypi",
             "version": "==1.4.3"
+        },
+        "pytz": {
+            "hashes": [
+                "sha256:a061aa0a9e06881eb8b3b2b43f05b9439d6583c206d0a6c340ff72a7b6669053",
+                "sha256:ffb9ef1de172603304d9d2819af6f5ece76f2e85ec10692a524dd876e72bf277"
+            ],
+            "version": "==2018.5"
         }
     },
     "develop": {}

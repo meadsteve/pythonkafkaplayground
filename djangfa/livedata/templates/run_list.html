@@ -1,0 +1,9 @@
+{% if run_list %}
+    <ul>
+    {% for random_run in run_list %}
+        <li><a href="/livedata/{{ random_run.run_id }}/">{{ random_run.run_id }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No data</p>
+{% endif %}

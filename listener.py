@@ -21,9 +21,8 @@ try:
                 consumer.seek(partitions[int(partition)], offset + 1)
 except FileNotFoundError as e:
     print("starting a new consumer from the latest position")
-
 for msg in consumer:
-    print(f"{msg.offset} - {msg.value}")
+    print(f"{msg.partition} - {msg.offset} - {msg.value}")
     offsets[msg.partition] = msg.offset
     with open(".lockfile", 'w') as lockfile:
         lockfile.seek(0)

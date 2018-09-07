@@ -2,17 +2,32 @@ import json
 import uuid
 
 from kafka import KafkaProducer
-producer = KafkaProducer(bootstrap_servers='172.17.0.1:9092')
 
-TIMEOUT = 20
+
+class SimplePublisher:
+    TIMEOUT = 20
+
+    def __init__(self, topic):
+        self.topic = topic
+        self.producer = KafkaProducer(bootstrap_servers='172.17.0.1:9092', partitioner=self._partition)
+
+    def push(self, data, key):
+        return self.producer\
+            .send(self.topic, self._encode(data), key=bytearray(f"{key}", "utf-8"))\
+            .get(timeout=self.TIMEOUT)
+
+    def _partition(self, key, partitions, *args):
+        return int(key) % len(partitions)
+
+    def _encode(self, data):
+        return bytearray(json.dumps(data), "utf-8")
+
+
+publisher = SimplePublisher(topic="test")
+
 RUN_ID = str(uuid.uuid4())
 
-
-def encode(data):
-    return bytearray(json.dumps(data), "utf-8")
-
 for j in range(20):
-    requests = [producer.send('test', encode({"number": f"{j}-{i}", "run_id": RUN_ID})) for i in range(10)]
-    results = [request.get(timeout=TIMEOUT) for request in requests]
+    requests = [publisher.push(data={"number": f"{j}-{i}", "run_id": RUN_ID}, key=i) for i in range(10)]
 
 print("done")
