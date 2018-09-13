@@ -7,7 +7,7 @@ PARTITION_COUNT = 3
 def decode(data):
     return json.loads(data.decode("utf-8"))
 
-consumer = KafkaConsumer(bootstrap_servers='172.17.0.1:9092', value_deserializer=decode)
+consumer = KafkaConsumer(bootstrap_servers='kafka:9092', value_deserializer=decode)
 partitions = [TopicPartition(topic='test', partition=i) for i in range(PARTITION_COUNT)]
 consumer.assign(partitions)
 

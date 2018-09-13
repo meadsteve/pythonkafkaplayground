@@ -50,7 +50,7 @@ class Command(BaseCommand):
     help = 'Pulls in data from kafka'
 
     def handle(self, *args, **options):
-        consumer = KafkaConsumer(bootstrap_servers='172.17.0.1:9092', value_deserializer=decode)
+        consumer = KafkaConsumer(bootstrap_servers='kafka:9092', value_deserializer=decode)
         partitions = [TopicPartition(topic='test', partition=i) for i in range(PARTITION_COUNT)]
         consumer.assign(partitions)
 

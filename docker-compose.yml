@@ -1,6 +1,8 @@
 version: "3"
 
 services:
+
+  # Services depended on
   kafka:
     image: wurstmeister/kafka:2.11-2.0.0
     depends_on:
@@ -15,4 +17,29 @@ services:
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
+  db:
+    image: postgres
 
+  # Transient container to make sure the db is migrated
+  data_migrate:
+    build:
+      context: ./web
+    command: ./manage.py migrate
+    depends_on:
+    - db
+
+  # Services running
+  webhost:
+    build:
+      context: ./web
+    ports:
+      - "8000:8000"
+    depends_on:
+    - db
+  kafka-worker:
+    build:
+      context: ./web
+    command: ./manage.py ingest
+    depends_on:
+    - db
+    - kafka

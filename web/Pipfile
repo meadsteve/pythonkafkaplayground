@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 kafka-python = "*"
 django = "*"
+"psycopg2" = "*"
 
 [dev-packages]
 
